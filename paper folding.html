@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.wrap { width: 300px; margin: 30px auto 0;  -webkit-perspective: 800px; position: relative;}
+			.wrap h3 { margin: 0; text-align: center; background-color: #F60; color: #fff; height: 40px; line-height: 40px; z-index: 20;  position: relative;}
+			.wrap div { position: absolute; top: 31px; left: 0; width: 100%; -webkit-transform-style: preserve-3d; -webkit-transform-origin: top;-webkit-transform: rotateX(-120deg); }
+			.wrap>div { top: 40px;}
+			.wrap span { display: block; height: 30px; background-color: #9F0; color: #fff; text-indent: 30px; box-shadow: inset 0 0 0 15px rgba(0,0,0,1); transition: 1s;}
+			#btn { position: absolute;}
+			.wrap .show { -webkit-animation: 2s show; -webkit-transform: rotateX(0deg);}
+			.wrap .show>span{ box-shadow: inset 0 0 0 15px rgba(0,0,0,0);}
+			@-webkit-keyframes show{
+				from{  -webkit-transform: rotateX(-120deg);}
+				25% {  -webkit-transform: rotateX(25deg);}
+				50% {  -webkit-transform: rotateX(-20deg);}
+				75% {  -webkit-transform: rotateX(15deg);}
+				to{ -webkit-transform: rotateX(0deg);}
+			}
+			.wrap .hide { -webkit-animation: 1s hide; -webkit-transform: rotateX(-120deg);}
+			/*.wrap .hide>span { box-shadow: 0 0 0 15px rgba(0,0,0,1);}*/
+			@-webkit-keyframes hide{
+				from{-webkit-transform: rotateX(0deg);}
+				to{-webkit-transform: rotateX(-120deg);}
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" value="飞起来" id="btn" />
+		<div class="wrap" id="box">
+			<h3>我是标题</h3>
+			<div>
+				<span>1</span>
+				<div>
+					<span>2</span>
+					<div>
+						<span>3</span>
+						<div>
+							<span>4</span>
+							<div>
+								<span>5</span>
+								<div>
+									<span>6</span>
+									<div>
+										<span>7</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script>
+		var box = document.getElementById('box');
+		var btn = document.getElementById('btn');
+		var aDiv = box.getElementsByTagName('div');
+		var timer = null;
+		var num = 0;
+		var flag = true;
+		btn.onclick = function(){
+			if(timer){
+				return;
+			}
+			if(flag){
+				timer = setInterval(function(){
+					aDiv[num].className = 'show';
+	
+					num++;
+					if(num >= aDiv.length){
+						clearInterval(timer);
+						timer = null;
+						num = aDiv.length-1;
+					}
+				},200);
+			}else{
+				timer = setInterval(function(){
+					aDiv[num].className = 'hide';
+	
+					num--;
+					if(num <0){
+						clearInterval(timer);
+						timer = null;
+						num = 0;
+					}
+				},200);
+			}
+			flag = !flag;
+		}
+
+	</script>
+	</body>
+</html>
